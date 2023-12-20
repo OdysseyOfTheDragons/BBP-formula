@@ -1,7 +1,7 @@
 # Variables
 CC=gcc
 FLAGS=-Wall -Wextra -Werror -pedantic -fsanitize=address -g -I.
-TFLAGS=-I. -O3 -Os -s
+TFLAGS=-I. -flto -s -Ofast -march=native
 LINKER=$(CC) $(FLAGS)
 OPTIMIZER=$(CC) $(TFLAGS)
 
@@ -33,10 +33,10 @@ _test_: $(OBJ)
 
 # Build objects and dependencies
 %.o: %.c
-	$(OPTIMIZER) -o $@ -c $<
+	@$(OPTIMIZER) -o $@ -c $<
 
 %.d: %.c
-	$(OPTIMIZER) -MM -MD -o $@ $<
+	@$(OPTIMIZER) -MM -MD -o $@ $<
 
 # Clean
 .PHONY: clean

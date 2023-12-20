@@ -1,8 +1,15 @@
 #include "mathematics/mathematics.h"
 
+// For faster results, the variables are declared ahead
+// in _pow()
+long double pow_result;
+long double base;
+// in _pow_modular()
+long int mod_result;
+
 long double _pow(int a, int k) {
-	long double result = 1.0;
-	long double base = a;
+	pow_result = 1.0;
+	base = a;
 
 	if (k < 0) {
 		base = 1.0 / a;
@@ -11,33 +18,33 @@ long double _pow(int a, int k) {
 
 	while (k > 0) {
 		if (k % 2 == 1) {
-			result *= base;
+			pow_result *= base;
 			k--;
 		}
 
 		base *= base;
-		k /= 2;
+		k >>= 1; // divide by two
 	}
 
-	return result;
+	return pow_result;
 }
 
 long int _pow_modular(int a, int k, int r) {
 	// https://en.wikipedia.org/wiki/Modular_exponentiation#Pseudocode
 	if (r == 1) { return 0; }
 
-	long int result = 1;
+	mod_result = 1;
 	a = a % r;
 	while (k > 0) {
 		if ((k & 1) > 0) {
-			result = (result * a) % r;
+			mod_result = (mod_result * a) % r;
 		}
 
 		k >>= 1;
 		a = (a * a) % r;
 	}
 
-	return result;
+	return mod_result;
 }
 
 double _abs(double a) {
