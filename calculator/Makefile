@@ -11,7 +11,6 @@ TOUT=_test_
 ## Sources
 SRC=main.c \
 	mathematics/mathematics.c \
-	cli/cli.c \
 	algorithm/algorithm.c
 OBJ=$(SRC:.c=.o)
 DEP=$(SRC:.c=.d)
