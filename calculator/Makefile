@@ -1,9 +1,12 @@
 # Variables
 CC=gcc
-FLAGS=-Wall -Wextra -Werror -pedantic -fsanitize=address -g -I.
+FLAGS=-Wall -Wextra -Werror -pedantic -fsanitize=address -g -I. -pg
 TFLAGS=-I. -flto -s -Ofast -march=native
 LINKER=$(CC) $(FLAGS)
 OPTIMIZER=$(CC) $(TFLAGS)
+
+OUT=_pi_
+TOUT=_test_
 
 ## Sources
 SRC=main.c \
@@ -21,22 +24,30 @@ LIB=-lm
 all: $(BIN)
 
 # GCC build the program to test
-pi: clean _pi_
+pi: clean $(OUT)
 
-test: clean _test_
+test: clean $(TOUT)
 
-_pi_: $(OBJ)
+$(OUT): $(OBJ)
 	$(LINKER) -o $@ $+ $(LIB)
 
-_test_: $(OBJ)
+$(TOUT): $(OBJ)
 	$(OPTIMIZER) -o $@ $+ $(LIB)
 
 # Build objects and dependencies
 %.o: %.c
-	@$(OPTIMIZER) -o $@ -c $<
+	@$(OPTIMIZER) -pg -o $@ -c $<
 
 %.d: %.c
 	@$(OPTIMIZER) -MM -MD -o $@ $<
+
+# Additional
+valgrind: $(OUT)
+	valgrind ./$(OUT)
+
+gprof: $(OUT)
+	./$(OUT)
+	gprof -b $(OUT)
 
 # Clean
 .PHONY: clean
