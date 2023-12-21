@@ -7,7 +7,8 @@ long double base;
 // in _pow_modular()
 long int mod_result;
 
-long double _pow(int a, int k) {
+long double _pow(int a, int k)
+{
 	pow_result = 1.0;
 	base = a;
 
@@ -23,15 +24,18 @@ long double _pow(int a, int k) {
 		}
 
 		base *= base;
-		k >>= 1; // divide by two
+		k >>= 1;	// divide by two
 	}
 
 	return pow_result;
 }
 
-long int _pow_modular(int a, int k, int r) {
+long int _pow_modular(int a, int k, int r)
+{
 	// https://en.wikipedia.org/wiki/Modular_exponentiation#Pseudocode
-	if (r == 1) { return 0; }
+	if (r == 1) {
+		return 0;
+	}
 
 	mod_result = 1;
 	a = a % r;
@@ -47,7 +51,10 @@ long int _pow_modular(int a, int k, int r) {
 	return mod_result;
 }
 
-double _abs(double a) {
-	if (a < 0) { return -a; }
+double _abs(double a)
+{
+	if (a < 0) {
+		return -a;
+	}
 	return a;
 }

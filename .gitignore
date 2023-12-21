@@ -53,5 +53,4 @@ dkms.conf
 
 # Personal
 **/pi.tar.gz
-_test_
-_pi_
+*.*~

@@ -5,33 +5,25 @@ TFLAGS=-I. -flto -Ofast -march=native
 LINKER=$(CC) $(FLAGS)
 OPTIMIZER=$(CC) $(TFLAGS)
 
-OUT=_pi_
-TOUT=_test_
+OUT=_server_
 
 ## Sources
-SRC=main.c \
-	mathematics/mathematics.c \
-	algorithm/algorithm.c
+SRC=main.c
 OBJ=$(SRC:.c=.o)
 DEP=$(SRC:.c=.d)
 
 ## Snippets
-BIN=pi test
+BIN=server
 LIB=-lm
 
 .PHONY: all
 all: $(BIN)
 
 # GCC build the program to test
-pi: clean $(OUT)
-
-test: clean $(TOUT)
+server: clean $(OUT)
 
 $(OUT): $(OBJ)
 	$(LINKER) -o $@ $+ $(LIB)
-
-$(TOUT): $(OBJ)
-	$(OPTIMIZER) -o $@ $+ $(LIB)
 
 # Build objects and dependencies
 %.o: %.c
@@ -44,19 +36,15 @@ $(TOUT): $(OBJ)
 valgrind: $(OUT)
 	valgrind ./$(OUT)
 
-gprof: $(OUT)
-	./$(OUT)
-	gprof -b $(OUT)
-
 # Clean
 .PHONY: clean
 clean:
-	rm -f $(BIN) _pi_ _test_ $(OBJ) $(DEP) *.i *.s
+	rm -f $(BIN) $(OUT) $(OBJ) $(DEP) *.i *.s
 
 # Archive
 .PHONY: tarball
 tarball:
-	-tar -zcf pi.tar.gz Makefile **/*.[ch]
+	-tar -zcf server.tar.gz Makefile **/*.[ch]
 
 # Includes dependencies
 -include $(DEP)

@@ -23,7 +23,8 @@ long double total;
 /// @param N The place of the decimal to calculate
 /// @param a A precise parameter
 /// @return The sum desired
-long double sn(int N, int a) {
+long double sn(int N, int a)
+{
 	sum = 0;
 	cache = 0.0;
 
@@ -31,19 +32,19 @@ long double sn(int N, int a) {
 	// but this would add an operation per iteration
 
 	/* for (k = 0; k < N; k++) {
-		eight = 8 * k + a;
-		numerator = _pow_modular(16, N - k, eight);
-		
-		coeff = numerator / eight;
-		sum += coeff - (int)coeff;
-		sum -= (int)sum;
-	} */
+	   eight = 8 * k + a;
+	   numerator = _pow_modular(16, N - k, eight);
+
+	   coeff = numerator / eight;
+	   sum += coeff - (int)coeff;
+	   sum -= (int)sum;
+	   } */
 
 	// This should be faster
 	for (k = 0; k < N; k++) {
 		eight = 8 * k + a;
 		numerator = _pow_modular(16, N - k, eight);
-		
+
 		coeff = numerator / eight;
 		sum += coeff - (int)coeff;
 		sum -= (int)sum;
@@ -68,7 +69,8 @@ long double sn(int N, int a) {
 	return sum;
 }
 
-long double pi(int N) {
+long double pi(int N)
+{
 	sn_1 = sn(N, 1);
 	sn_4 = sn(N, 4);
 	sn_5 = sn(N, 5);
