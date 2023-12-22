@@ -1,4 +1,4 @@
-#include "mathematics/mathematics.h"
+#include "mathematics.h"
 
 // For faster results, the variables are declared ahead
 // in _pow()

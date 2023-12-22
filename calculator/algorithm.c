@@ -1,4 +1,4 @@
-#include "algorithm/algorithm.h"
+#include "algorithm.h"
 #include "mathematics/mathematics.h"
 
 #define PRECISION 1.0e-17
@@ -10,7 +10,7 @@ int k;
 long double eight;
 long double numerator;
 long double coeff;
-long double cache;
+// long double cache;
 // In pi()
 long double sn_1;
 long double sn_4;
@@ -26,21 +26,8 @@ long double total;
 long double sn(int N, int a)
 {
 	sum = 0;
-	cache = 0.0;
+	// cache = 0.0;
 
-	// It would be closer to the formula to write k <= N - 1
-	// but this would add an operation per iteration
-
-	/* for (k = 0; k < N; k++) {
-	   eight = 8 * k + a;
-	   numerator = _pow_modular(16, N - k, eight);
-
-	   coeff = numerator / eight;
-	   sum += coeff - (int)coeff;
-	   sum -= (int)sum;
-	   } */
-
-	// This should be faster
 	for (k = 0; k < N; k++) {
 		eight = 8 * k + a;
 		numerator = _pow_modular(16, N - k, eight);
@@ -51,15 +38,12 @@ long double sn(int N, int a)
 	}
 
 	while (1) {
-		// numerator = _pow(16, N - k);
-		// eight = 8 * k + a;
-
 		coeff = _pow(16, N - k) / (8 * k + a);
-		if (cache == coeff || coeff < PRECISION) {
+		if (/* cache == coeff ||*/ coeff < PRECISION) {
 			break;
 		}
 
-		cache = coeff;
+		/* cache = coeff; */
 		sum += coeff - (int)coeff;
 		sum -= (int)sum;
 

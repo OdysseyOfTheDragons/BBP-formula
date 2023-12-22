@@ -4,7 +4,7 @@ SHELL:=/bin/bash
 CC=gcc -I. -Icalculator
 FLAGS=-Wall -Wextra -Werror -pedantic -fsanitize=address -g
 TFLAGS=-flto -Ofast -march=native
-LIB=-lm
+LIB=-lm -lgmp -lmpfr
 LINKER=$(CC) $(FLAGS)
 OPTIMIZER=$(CC) $(TFLAGS)
 
@@ -24,8 +24,8 @@ CALC_DIR=calculator
 CALC_OUT=$(CALC_DIR)/build/calculator.out
 
 CALC_SRC=$(CALC_DIR)/main.c \
-		 $(CALC_DIR)/mathematics/mathematics.c \
-		 $(CALC_DIR)/algorithm/algorithm.c
+		 $(CALC_DIR)/algorithm.c \
+		 mathematics/mathematics.c
 CALC_OBJ=$(CALC_SRC:.c=.o)
 CALC_DEP=$(CALC_SRC:.c=.d)
 
@@ -46,6 +46,9 @@ clean:
 .PHONY: tarball
 tarball:
 	@tar -zcf pi.tar.gz Makefile **/*.md **/*.[ch]
+
+format:
+	@indent -linux **/*.[ch]
 
 # Includes dependencies
 -include $(DEP)
