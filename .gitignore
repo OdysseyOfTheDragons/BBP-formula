@@ -54,3 +54,5 @@ dkms.conf
 # Personal
 **/pi.tar.gz
 *.*~
+build/**/*
+docs/**/*

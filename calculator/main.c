@@ -1,46 +1,35 @@
+/**
+ * @file
+ * A test file, to check whether the algorithm works as needed.
+ */
+
 #include "mathematics/mathematics.h"
 #include "algorithm.h"
-
-#define N 25000
-
+#include "converter/converter.h"
 #include <stdio.h>
-// #include <math.h>
-// #include <time.h>
-// #include <stdlib.h>
+#include <stdlib.h>
 
-// char hex[100];
-
-/* void to_hex(double x, char chx[]) {
-    double y;
-    int i;
-    const char hx[] = "0123456789ABCDEF";
-
-    y = _abs(x);
-    for (i = 0; i < 16; i++) {
-        y = 16.0 * (y - floor(y));
-        chx[i] = hx[(int)(y)];
-    }
-} */
+/// The number of decimals we want to calculate, and print to screen.
+#define N 100
 
 int main(void)
 {
-	// printf("Start with %d decimals\n", N);
+	char *hex = (char *)malloc((N + 1) * sizeof(char));
 
-	// pi(N);
-
-	// clock_t t0 = clock();
-	for (int i = 0; i < N; i++) {
-		printf("\r>%d", i);
-		pi(i);
-
-		// long double pi_n = pi(i);
-		// to_hex(pi_n, hex);
-		// printf("> i: %d | pi: %c\n", i, hex[0]);
+	printf("Starting calculating pi decimals:\n");
+	for (unsigned int i = 0; i < N; i++) {
+		printf("\r> %d", i);
+		hex[i] = convert_digit(pi(i));
 	}
-	printf("\n");
-	// clock_t t1 = clock();
+	printf("\n\n");
 
-	// printf("\nTIME: %f seconds\n", (double)(t1 - t0) / CLOCKS_PER_SEC);
+	hex[N] = '\0';
+
+	char *str = convert(hex);
+	printf("pi = %s\n", str);
+
+	free(hex);
+	free(str);
 
 	return 0;
 }

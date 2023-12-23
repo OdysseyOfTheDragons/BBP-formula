@@ -1,32 +1,40 @@
+/**
+ * @file
+ * The implementation of the BBP formula.
+ */
+
 #include "algorithm.h"
 #include "mathematics/mathematics.h"
 
+/// The precision where we are nearly a hundred percent sure the calculated
+/// digit is the good one. The lower this value is, the more precise the
+/// digit will be.
+/// But at the same time, please recall that the lower the value is, the
+/// longer the computations will take.
 #define PRECISION 1.0e-17
 
 // To be faster, the variables are declared before use
 // In sn()
-long double sum;
-int k;
-long double eight;
-long double numerator;
-long double coeff;
-// long double cache;
+static long double sum;
+static unsigned int k;
+static long double eight;
+static long double numerator;
+static long double coeff;
 // In pi()
-long double sn_1;
-long double sn_4;
-long double sn_5;
-long double sn_6;
-long double total;
+static long double sn_1;
+static long double sn_4;
+static long double sn_5;
+static long double sn_6;
+static long double total;
 
-/// Calulates the Sn term of the Nth decimal with the value `a`
+/// Calulates the \f$Sn`f$ term of the \f$N\f$-th digit with the value `a`.
 ///
-/// @param N The place of the decimal to calculate
-/// @param a A precise parameter
+/// @param N The place of the digit to calculate
+/// @param a A given parameter, coming from the formula
 /// @return The sum desired
-long double sn(int N, int a)
+static long double sn(unsigned int N, int a)
 {
 	sum = 0;
-	// cache = 0.0;
 
 	for (k = 0; k < N; k++) {
 		eight = 8 * k + a;
@@ -39,11 +47,10 @@ long double sn(int N, int a)
 
 	while (1) {
 		coeff = _pow(16, N - k) / (8 * k + a);
-		if (/* cache == coeff ||*/ coeff < PRECISION) {
+		if (coeff < PRECISION) {
 			break;
 		}
 
-		/* cache = coeff; */
 		sum += coeff - (int)coeff;
 		sum -= (int)sum;
 
@@ -53,7 +60,7 @@ long double sn(int N, int a)
 	return sum;
 }
 
-long double pi(int N)
+long double pi(unsigned int N)
 {
 	sn_1 = sn(N, 1);
 	sn_4 = sn(N, 4);

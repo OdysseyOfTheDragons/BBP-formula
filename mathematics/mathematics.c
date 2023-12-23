@@ -1,29 +1,36 @@
+/**
+ * @file
+ * Provides useful functions, that are faster than the base functions from
+ * `<math.h>`.
+ */
+
 #include "mathematics.h"
 
 // For faster results, the variables are declared ahead
 // in _pow()
-long double pow_result;
-long double base;
+static long double pow_result;
+// unsigned int base;
 // in _pow_modular()
-long int mod_result;
+static long int mod_result;
 
 long double _pow(int a, int k)
 {
 	pow_result = 1.0;
-	base = a;
+	// base = a;
 
 	if (k < 0) {
-		base = 1.0 / a;
+		a = 1.0 / a;
 		k = -k;
 	}
 
 	while (k > 0) {
-		if (k % 2 == 1) {
-			pow_result *= base;
+		// if (k % 2 == 1) {
+		if ((k & 1) > 0) {
+			pow_result *= a;
 			k--;
 		}
 
-		base *= base;
+		a *= a;
 		k >>= 1;	// divide by two
 	}
 
@@ -57,4 +64,9 @@ double _abs(double a)
 		return -a;
 	}
 	return a;
+}
+
+int _floor(long double val)
+{
+	return (int)val - (val < (int)val);
 }
