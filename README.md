@@ -4,7 +4,7 @@ Implementation of the [Bailey-Borwein-Plouffe formula](https://en.wikipedia.org/
 
 ## Project idea
 
-We are [two French students](Contributors.md), in [Lycée Hoche](https://en.wikipedia.org/wiki/Lyc%C3%A9e_Hoche) (Versailles), and we decided to test our limits. As we love the number \f$\pi\f$, we searched for a way to calculate its decimal digits.
+iWe are [two French students](Contributors.md), in [Lycée Hoche](https://en.wikipedia.org/wiki/Lyc%C3%A9e_Hoche) (Versailles), and we decided to test our limits. As we love the number pi, we searched for a way to calculate its decimal digits.
 
 Most of the existing algorithms require a powerful computer, with a lot of computational power, or memory.
 
@@ -17,7 +17,7 @@ So here comes the Bailey-Borwein-Plouffe formula, which makes it possible, to on
 This project uses `make` commands to build and use the project.
 
 As such, the following commands are usable:
-* `calculator`: builds the calculator and test its speed to calculate the first \f$N\f$-th digits;
+* `calculator`: builds the calculator and test its speed to calculate the first N-th digits;
 * `client`: builds the server client;
 * `server`: buildis the server backend part;
 * `clean`: deletes all build files;
@@ -96,18 +96,18 @@ int main() {
 }
 ```
 
-Under the hood, `convert()` uses the [GNU MPFR](https://en.wikipedia.org/wiki/GNU_MPFR) library to get the decimal digits of \f$\pi\f$ with an arbitrary number of digits.
+Under the hood, `convert()` uses the [GNU MPFR](https://en.wikipedia.org/wiki/GNU_MPFR) library to get the decimal digits of pi with an arbitrary number of digits.
 
 ### Server / Client
 
-The thing is: even though the BBP algorithm is already optimized to an impressive level, the flags passed down to `gcc` are also optimized, the computation of the digits of \f$\pi\f$ will still take time...
+The thing is: even though the BBP algorithm is already optimized to an impressive level, the flags passed down to `gcc` are also optimized, the computation of the digits of pi will still take time...
 
 To prevent the use of a supercomputer, the best is to use... multiple computers!
 
 So here comes the point: the server is just the main point of our architecture. Every computer can download the client part, connect it to a server, and the client will send computed digits to the server.
 
-At the end, the server only needs to convert the digits to base **10**, and there we are! We calculated ourselves the decimals of \f$\pi\f$!
-i
+At the end, the server only needs to convert the digits to base **10**, and there we are! We calculated ourselves the decimals of pi!
+
 ## Algorithms
 
 Where would we be, without these algorithms?
@@ -128,7 +128,7 @@ In order not to lose our way, and stray from the right path, here is the roadmap
 * ~~BBP algorithm~~
 * ~~base **16** to base **10** conversion~~
 * server
-    * socket handling
+    * ~~socket handling~~
     * API
     * database
 * client
@@ -138,4 +138,4 @@ In order not to lose our way, and stray from the right path, here is the roadmap
         * faster loops
     * base convertions
     * database with concurrent read/write
-    * client with threads
+    * ~~client with threads~~
