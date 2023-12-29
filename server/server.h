@@ -16,6 +16,9 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+/// The IP of the server
+#define IP "0.0.0.0" 
+
 /// The port on which the server listens.
 #define PORT 2222
 

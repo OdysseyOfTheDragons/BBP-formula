@@ -15,17 +15,7 @@
 
 // To be faster, the variables are declared before use
 // In sn()
-static long double sum;
-static unsigned int k;
-static long double eight;
-static long double numerator;
-static long double coeff;
 // In pi()
-static long double sn_1;
-static long double sn_4;
-static long double sn_5;
-static long double sn_6;
-static long double total;
 
 /// Calulates the \f$Sn`f$ term of the \f$N\f$-th digit with the value `a`.
 ///
@@ -34,6 +24,12 @@ static long double total;
 /// @return The sum desired
 static long double sn(unsigned int N, int a)
 {
+	long double sum;
+	unsigned int k;
+	long double eight;
+	long double numerator;
+	long double coeff;
+
 	sum = 0;
 
 	for (k = 0; k < N; k++) {
@@ -62,6 +58,12 @@ static long double sn(unsigned int N, int a)
 
 long double pi(unsigned int N)
 {
+	long double sn_1;
+	long double sn_4;
+	long double sn_5;
+	long double sn_6;
+	long double total;
+
 	sn_1 = sn(N, 1);
 	sn_4 = sn(N, 4);
 	sn_5 = sn(N, 5);

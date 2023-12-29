@@ -1,16 +1,16 @@
 SHELL:=/bin/bash
 
 # Variables
-CC=gcc -I. -Icalculator
-FLAGS=-Wall -Wextra -pedantic -fsanitize=address -g
-TFLAGS=-Ofast -march=native
+CC=gcc -I. -fopenmp
+FLAGS=-Wall -Wextra -pedantic -fsanitize=thread -g
+TFLAGS=-Ofast -march=native#   -fsanitize=thread
 LIB=-lm -lgmp -lmpfr
 LINKER=$(CC) $(FLAGS)
 OPTIMIZER=$(CC) $(TFLAGS)
 
 ### TODO: MODIFY ON PRODUCTION
 # LINKER / OPTIMIZER
-COMPILER=$(LINKER)
+COMPILER=$(OPTIMIZER)
 
 # Build objects and dependencies
 %.o: %.c
@@ -54,12 +54,29 @@ server: clean $(SERV_OUT)
 $(SERV_OUT): $(SERV_OBJ)
 	@$(COMPILER) -o $@ $+ $(LIB)
 
+### TEST
+
+TEST_DIR=test
+TEST_OUT=build/test.out
+
+TEST_SRC=$(TEST_DIR)/no_thread.c \
+		 calculator/algorithm.c \
+		 mathematics/mathematics.c \
+		 converter/converter.c
+TEST_OBJ=$(TEST_SRC:.c=.o)
+TEST_DEP=$(TEST_SRC:.c=.d)
+
+TEST_BIN=test
+test: clean $(TEST_OUT)
+	time ./$(TEST_OUT)
+
+$(TEST_OUT): $(TEST_OBJ)
+	$(COMPILER) -o $@ $+ $(LIB)
+
 # Clean
 .PHONY: clean
 clean:
-	# CALCULATOR
 	@rm -f $(CALC_OUT) $(CALC_OBJ) $(CALC_DEP)
-	# SERVER
 	@rm -f $(SERV_OUT) $(SERV_OBJ) $(SERV_DEP)
 
 # Archive
@@ -75,7 +92,7 @@ format:
 .PHONY: docs
 docs:
 	@doxygen
-	# @make -C ./docs/latex
+	@make -C ./docs/latex
 
 # Includes dependencies
 -include $(DEP)

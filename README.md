@@ -77,3 +77,65 @@ int main() {
     return EXIT_SUCCESS;
 }
 ```
+
+_Usage:_ you call the `convert()` on the string you obtained the step above.
+```c
+// ...
+
+int main() {
+    // ...
+
+    // We use the string
+    char *output = convert(string);
+
+    free(output);
+    
+    // ...
+
+    return EXIT_SUCCESS;
+}
+```
+
+Under the hood, `convert()` uses the [GNU MPFR](https://en.wikipedia.org/wiki/GNU_MPFR) library to get the decimal digits of \f$\pi\f$ with an arbitrary number of digits.
+
+### Server / Client
+
+The thing is: even though the BBP algorithm is already optimized to an impressive level, the flags passed down to `gcc` are also optimized, the computation of the digits of \f$\pi\f$ will still take time...
+
+To prevent the use of a supercomputer, the best is to use... multiple computers!
+
+So here comes the point: the server is just the main point of our architecture. Every computer can download the client part, connect it to a server, and the client will send computed digits to the server.
+
+At the end, the server only needs to convert the digits to base **10**, and there we are! We calculated ourselves the decimals of \f$\pi\f$!
+i
+## Algorithms
+
+Where would we be, without these algorithms?
+
+It is our duty to show the used algorithms, so that everybody can recognize the genius behind the formulas:
+* [Bailey-Borwein-Plouffe formula](https://en.wikipedia.org/wiki/Bailey%E2%80%93Borwein%E2%80%93Plouffe_formula);
+* [Modular exponentiation](https://en.wikipedia.org/wiki/Modular_exponentiation);
+* [Exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring).
+
+## License
+
+The license can be found in the `LICENSE` file.
+
+## Roadmap
+
+In order not to lose our way, and stray from the right path, here is the roadmap that should be followed. It will help keep our minds clear, and we should then be able to take a break from the project, and go back to it, knowing what should be done.
+
+* ~~BBP algorithm~~
+* ~~base **16** to base **10** conversion~~
+* server
+    * socket handling
+    * API
+    * database
+* client
+* optimizations
+    * BBP algorithm
+        * faster multiplications
+        * faster loops
+    * base convertions
+    * database with concurrent read/write
+    * client with threads

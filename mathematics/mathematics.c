@@ -8,13 +8,13 @@
 
 // For faster results, the variables are declared ahead
 // in _pow()
-static long double pow_result;
 // unsigned int base;
 // in _pow_modular()
-static long int mod_result;
 
 long double _pow(int a, int k)
 {
+	long double pow_result;
+
 	pow_result = 1.0;
 	// base = a;
 
@@ -31,7 +31,7 @@ long double _pow(int a, int k)
 		}
 
 		a *= a;
-		k >>= 1;	// divide by two
+		k /= 2; // k >>= 1;	// divide by two
 	}
 
 	return pow_result;
@@ -44,6 +44,8 @@ long int _pow_modular(int a, int k, int r)
 		return 0;
 	}
 
+	long int mod_result;
+
 	mod_result = 1;
 	a = a % r;
 	while (k > 0) {
@@ -51,7 +53,7 @@ long int _pow_modular(int a, int k, int r)
 			mod_result = (mod_result * a) % r;
 		}
 
-		k >>= 1;
+		k /= 2;	// k >>= 1
 		a = (a * a) % r;
 	}
 
