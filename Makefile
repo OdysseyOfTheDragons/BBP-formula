@@ -10,7 +10,7 @@ OPTIMIZER=$(CC) $(TFLAGS)
 
 ### TODO: MODIFY ON PRODUCTION
 # LINKER / OPTIMIZER
-COMPILER=$(OPTIMIZER)
+COMPILER=$(LINKER)
 
 # Build objects and dependencies
 %.o: %.c
@@ -52,6 +52,22 @@ server: clean $(SERV_OUT)
 	./$(SERV_OUT)
 
 $(SERV_OUT): $(SERV_OBJ)
+	@$(COMPILER) -o $@ $+ $(LIB)
+
+### CLIENT
+
+CLIENT_DIR=client
+CLIENT_OUT=build/client.out
+
+CLIENT_SRC=$(CLIENT_DIR)/main.c
+CLIENT_OBJ=$(CLIENT_SRC:.c=.o)
+CLIENT_DEP=$(CLIENT_SRC:.c=.d)
+
+CLIENT_BIN=client
+client: clean $(CLIENT_OUT)
+	./$(CLIENT_OUT)
+
+$(CLIENT_OUT): $(CLIENT_OBJ)
 	@$(COMPILER) -o $@ $+ $(LIB)
 
 ### TEST
