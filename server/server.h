@@ -21,7 +21,7 @@
 #include <errno.h>
 
 /// The IP of the server
-#define IP "0.0.0.0" 
+#define IP "0.0.0.0"
 
 /// The port on which the server listens.
 #define PORT 59081

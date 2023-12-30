@@ -31,7 +31,7 @@ long double _pow(int a, int k)
 		}
 
 		a *= a;
-		k /= 2; // k >>= 1;	// divide by two
+		k /= 2;		// k >>= 1;     // divide by two
 	}
 
 	return pow_result;
@@ -53,7 +53,7 @@ long int _pow_modular(int a, int k, int r)
 			mod_result = (mod_result * a) % r;
 		}
 
-		k /= 2;	// k >>= 1
+		k /= 2;		// k >>= 1
 		a = (a * a) % r;
 	}
 

@@ -3,14 +3,14 @@ SHELL:=/bin/bash
 # Variables
 CC=gcc -I. -fopenmp
 FLAGS=-Wall -Wextra -pedantic -fsanitize=thread -g
-TFLAGS=-Ofast -march=native#   -fsanitize=thread
+TFLAGS=-Ofast -march=native# -fsanitize=undefined -fsanitize=thread -fsanitize=address
 LIB=-lm -lgmp -lmpfr
 LINKER=$(CC) $(FLAGS)
 OPTIMIZER=$(CC) $(TFLAGS)
 
 ### TODO: MODIFY ON PRODUCTION
 # LINKER / OPTIMIZER
-COMPILER=$(LINKER)
+COMPILER=$(OPTIMIZER)
 
 # Build objects and dependencies
 %.o: %.c
@@ -43,7 +43,9 @@ $(CALC_OUT): $(CALC_OBJ)
 SERV_DIR=server
 SERV_OUT=build/server.out
 
-SERV_SRC=$(SERV_DIR)/main.c
+SERV_SRC=$(SERV_DIR)/main.c \
+		 $(SERV_DIR)/communications.c \
+		 database/database.c
 SERV_OBJ=$(SERV_SRC:.c=.o)
 SERV_DEP=$(SERV_SRC:.c=.d)
 
@@ -59,7 +61,12 @@ $(SERV_OUT): $(SERV_OBJ)
 CLIENT_DIR=client
 CLIENT_OUT=build/client.out
 
-CLIENT_SRC=$(CLIENT_DIR)/main.c
+CLIENT_SRC=$(CLIENT_DIR)/main.c \
+		   $(SERV_DIR)/communications.c \
+		   $(CALC_DIR)/interface.c \
+		   $(CALC_DIR)/algorithm.c \
+		   mathematics/mathematics.c \
+		   converter/converter.c
 CLIENT_OBJ=$(CLIENT_SRC:.c=.o)
 CLIENT_DEP=$(CLIENT_SRC:.c=.d)
 
@@ -75,7 +82,8 @@ $(CLIENT_OUT): $(CLIENT_OBJ)
 TEST_DIR=test
 TEST_OUT=build/test.out
 
-TEST_SRC=$(TEST_DIR)/no_thread.c \
+TEST_SRC=$(TEST_DIR)/main.c \
+		 calculator/interface.c \
 		 calculator/algorithm.c \
 		 mathematics/mathematics.c \
 		 converter/converter.c

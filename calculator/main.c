@@ -11,14 +11,14 @@
 #include <omp.h>
 
 /// The number of decimals we want to calculate, and print to screen.
-#define N 25
+#define N 10000
 
 /// The number of cases in the array.
 #define Nplus (N + 1)
 
 int main(void)
 {
-	char hex[Nplus] = {0};
+	char hex[Nplus] = { '\0' };
 
 	printf("Starting calculating pi decimals:\n");
 
@@ -36,12 +36,11 @@ int main(void)
 
 	hex[N] = '\0';
 
-	char *str = convert(hex);
+//      char *str = convert(hex);
 	printf("pi = %s\n\n", hex);
-	printf("pi = %s\n", str);
+//      printf("pi = %s\n", str);
 
-	// free(hex);
-	free(str);
+//      free(str);
 
 	return 0;
 }
