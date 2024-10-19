@@ -4,7 +4,7 @@ Implementation of the [Bailey-Borwein-Plouffe formula](https://en.wikipedia.org/
 
 ## Project idea
 
-iWe are [two French students](Contributors.md), in [Lycée Hoche](https://en.wikipedia.org/wiki/Lyc%C3%A9e_Hoche) (Versailles), and we decided to test our limits. As we love the number pi, we searched for a way to calculate its decimal digits.
+We are [two French students](Contributors.md), in [Lycée Hoche](https://en.wikipedia.org/wiki/Lyc%C3%A9e_Hoche) (Versailles), and we decided to test our limits. As we love the number pi, we searched for a way to calculate its decimal digits.
 
 Most of the existing algorithms require a powerful computer, with a lot of computational power, or memory.
 
@@ -17,9 +17,9 @@ So here comes the Bailey-Borwein-Plouffe formula, which makes it possible, to on
 This project uses `make` commands to build and use the project.
 
 As such, the following commands are usable:
-* `calculator`: builds the calculator and test its speed to calculate the first N-th digits;
+* `calculator`: builds the calculator and tests its speed to calculate the first N-th digits;
 * `client`: builds the server client;
-* `server`: buildis the server backend part;
+* `server`: builds the server backend part;
 * `clean`: deletes all build files;
 * `tarball`: ouputs a tar archive with all the code;
 * `format`: formats all `.c` and `.h` files following the Linux conventions;
@@ -100,7 +100,7 @@ Under the hood, `convert()` uses the [GNU MPFR](https://en.wikipedia.org/wiki/GN
 
 ### Server / Client
 
-The thing is: even though the BBP algorithm is already optimized to an impressive level, the flags passed down to `gcc` are also optimized, the computation of the digits of pi will still take time...
+The thing is: even though the BBP algorithm as well as the flags passed down to `gcc` are already optimized to an impressive level, the computation of the digits of pi will still take time...
 
 To prevent the use of a supercomputer, the best is to use... multiple computers!
 
